@@ -1,0 +1,13 @@
+version: '3.7'
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/usr/app:cached
+      - node_modules:/usr/app/node_modules/:cached
+    ports:
+      - 5000:3000
+volumes:
+  node_modules:
