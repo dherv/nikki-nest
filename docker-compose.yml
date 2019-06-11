@@ -9,5 +9,24 @@ services:
       - node_modules:/usr/app/node_modules/:cached
     ports:
       - 5000:3000
+    depends_on:
+      - database
+    environment:
+      - 'DB_PORT=3306'
+      - 'DB_HOST=database'
+  # The Database
+  database:
+    image: mysql:latest
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    volumes:
+      - dbdata:/var/lib/mysql:cached
+    environment:
+      - 'MYSQL_DATABASE=nikki'
+      - 'MYSQL_USER=root'
+      - 'MYSQL_ROOT_PASSWORD=password'
+    ports:
+      - 33061:3306
 volumes:
   node_modules:
+  dbdata:
