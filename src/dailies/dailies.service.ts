@@ -1,14 +1,11 @@
 import { Injectable } from '@nestjs/common';
-// import { Daily as IDaily } from './interfaces/daily.interface';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, UpdateResult, DeleteResult } from 'typeorm';
 import { Daily as DailyEntity } from './daily.entity';
-import { CreateDailyDto } from '../../dist/dailies/create-daily.dto';
-import { UpdateDailyDto } from '../../dist/dailies/dto/dto';
+import { UpdateDailyDto, CreateDailyDto } from './dto/dto';
 
 @Injectable()
 export class DailiesService {
-  // private readonly dailies: IDaily[] = [];
   constructor(
     @InjectRepository(DailyEntity)
     private readonly dailyRepository: Repository<DailyEntity>,

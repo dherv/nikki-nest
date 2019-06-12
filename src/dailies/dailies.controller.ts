@@ -23,7 +23,7 @@ export class DailiesController {
   }
 
   @Get()
-  async findAll(@Query() query: ListAllEntities): Promise<any[]> {
+  async findAll(@Query() query: ListAllEntities): Promise<DailyEntity[]> {
     return await this.dailiesService.findAll();
   }
 
