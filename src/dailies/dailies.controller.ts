@@ -8,7 +8,7 @@ import {
   Delete,
   Put,
 } from '@nestjs/common';
-import { CreateDailyDto, UpdateDailyDto, ListAllEntities } from './dto/dto';
+import { DailyDto } from './daily.dto';
 import { DailiesService } from './dailies.service';
 import { Daily as DailyEntity } from './daily.entity';
 import { UpdateResult, DeleteResult } from 'typeorm';
@@ -18,12 +18,12 @@ export class DailiesController {
   constructor(private readonly dailiesService: DailiesService) {}
 
   @Post()
-  async create(@Body() daily: CreateDailyDto): Promise<DailyEntity> {
+  async create(@Body() daily: DailyDto): Promise<DailyEntity> {
     return await this.dailiesService.create(daily);
   }
 
   @Get()
-  async findAll(@Query() query: ListAllEntities): Promise<DailyEntity[]> {
+  async findAll(@Query() query: DailyDto): Promise<DailyEntity[]> {
     return await this.dailiesService.findAll();
   }
 
@@ -35,9 +35,9 @@ export class DailiesController {
   @Put(':id')
   async update(
     @Param('id') id: string,
-    @Body() updateDailyDto: UpdateDailyDto,
+    @Body() DailyDto: DailyDto,
   ): Promise<UpdateResult> {
-    return await this.dailiesService.update({ id, updateDailyDto });
+    return await this.dailiesService.update({ id, DailyDto });
   }
 
   @Delete(':id')

@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, UpdateResult, DeleteResult } from 'typeorm';
 import { Daily as DailyEntity } from './daily.entity';
-import { UpdateDailyDto, CreateDailyDto } from './dto/dto';
+import { DailyDto } from './daily.dto';
 
 @Injectable()
 export class DailiesService {
@@ -11,7 +11,7 @@ export class DailiesService {
     private readonly dailyRepository: Repository<DailyEntity>,
   ) {}
 
-  create(daily: CreateDailyDto): Promise<DailyEntity> {
+  create(daily: DailyDto): Promise<DailyEntity> {
     const newDaily = this.dailyRepository.create(daily);
     return this.dailyRepository.save(newDaily);
   }
@@ -26,12 +26,12 @@ export class DailiesService {
 
   update({
     id,
-    updateDailyDto,
+    DailyDto,
   }: {
     id: string;
-    updateDailyDto: UpdateDailyDto;
+    DailyDto: DailyDto;
   }): Promise<UpdateResult> {
-    return this.dailyRepository.update(id, updateDailyDto);
+    return this.dailyRepository.update(id, DailyDto);
   }
 
   delete(id: string): Promise<DeleteResult> {
