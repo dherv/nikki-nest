@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { Word } from '../words/words.entity';
 
 @Entity()
 export class Daily {
@@ -16,4 +17,7 @@ export class Daily {
 
   @Column('text')
   body: string;
+
+  @OneToMany(type => Word, word => word.daily)
+  words: Word[];
 }

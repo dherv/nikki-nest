@@ -1,10 +1,9 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { DailiesController } from './dailies/dailies.controller';
-import { DailiesService } from './dailies/dailies.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DailyModule } from './dailies/dailies.module';
+import { WordsModule } from './words/words.module';
 
 @Module({
   imports: [
@@ -19,6 +18,7 @@ import { DailyModule } from './dailies/dailies.module';
       synchronize: true,
     }),
     DailyModule,
+    WordsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
