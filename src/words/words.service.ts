@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Word as WordEntity } from './words.entity';
-import { Repository, Connection } from 'typeorm';
-import { CreateWordsDto } from './words.dto';
+import { Repository, Connection, UpdateResult, DeleteResult } from 'typeorm';
+import { CreateWordsDto, UpdateWordDto } from './words.dto';
 
 @Injectable()
 export class WordsService {
@@ -22,5 +22,13 @@ export class WordsService {
 
   findOne(id: string): Promise<WordEntity> {
     return this.wordRepository.findOne(id);
+  }
+
+  update(id: string, word: UpdateWordDto): Promise<UpdateResult> {
+    return this.wordRepository.update(id, word);
+  }
+
+  delete(id: string): Promise<DeleteResult> {
+    return this.wordRepository.delete(id);
   }
 }
