@@ -13,11 +13,14 @@ export class WordsService {
 
   async create(word: CreateWordsDto): Promise<WordEntity> {
     const newWord = this.wordRepository.create(word);
-    console.log(newWord);
     return this.wordRepository.save(newWord);
   }
 
   findAll(): Promise<WordEntity[]> {
     return this.wordRepository.find();
+  }
+
+  findOne(id: string): Promise<WordEntity> {
+    return this.wordRepository.findOne(id);
   }
 }

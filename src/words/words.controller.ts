@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Get } from '@nestjs/common';
+import { Controller, Post, Body, Get, Param } from '@nestjs/common';
 import { WordsService } from './words.service';
 import { CreateWordsDto } from './words.dto';
 import { Word } from './words.entity';
@@ -15,5 +15,10 @@ export class WordsController {
   @Get()
   async findAll(): Promise<Word[]> {
     return this.wordsService.findAll();
+  }
+
+  @Get(':id')
+  async findOne(@Param('id') id: string): Promise<Word> {
+    return this.wordsService.findOne(id);
   }
 }

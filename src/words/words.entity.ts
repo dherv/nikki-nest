@@ -25,7 +25,6 @@ export class Word {
   dailyId: number;
 
   @ManyToOne(type => Daily)
-  console.log({type})
   @JoinColumn({ name: 'dailyId' })
   daily: Daily;
 }
