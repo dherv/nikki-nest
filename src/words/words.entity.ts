@@ -1,5 +1,11 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
-import { Daily } from '../../src/dailies/daily.entity';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  JoinColumn,
+} from 'typeorm';
+import { Daily } from '../dailies/daily.entity';
 
 @Entity()
 export class Word {
@@ -15,6 +21,11 @@ export class Word {
   @Column({ nullable: true })
   ruby: string;
 
-  @ManyToOne(type => Daily, daily => daily.words)
+  @Column({ type: 'int', nullable: true })
+  dailyId: number;
+
+  @ManyToOne(type => Daily)
+  console.log({type})
+  @JoinColumn({ name: 'dailyId' })
   daily: Daily;
 }
