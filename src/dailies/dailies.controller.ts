@@ -42,7 +42,6 @@ export class DailiesController {
 
   @Delete(':id')
   async remove(@Param('id') id: string): Promise<DeleteResult> {
-    console.log(id);
     return await this.dailiesService.delete(id);
   }
 }

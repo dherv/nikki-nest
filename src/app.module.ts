@@ -4,6 +4,9 @@ import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DailyModule } from './dailies/dailies.module';
 import { WordsModule } from './words/words.module';
+import { GrammarsController } from './grammars/grammars.controller';
+import { GrammarsService } from './grammars/grammars.service';
+import { GrammarsModule } from './grammars/grammars.module';
 
 @Module({
   imports: [
@@ -19,8 +22,9 @@ import { WordsModule } from './words/words.module';
     }),
     DailyModule,
     WordsModule,
+    GrammarsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }
