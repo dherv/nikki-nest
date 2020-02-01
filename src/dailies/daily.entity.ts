@@ -7,6 +7,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { Word } from '../words/words.entity';
+import { Grammar } from '../grammars/grammars.entity';
 
 @Entity()
 export class Daily {
@@ -40,4 +41,7 @@ export class Daily {
 
   @OneToMany(type => Word, word => word.daily)
   words: Word[];
+
+  @OneToMany(type => Grammar, grammar => grammar.daily)
+  grammars: Grammar[];
 }
