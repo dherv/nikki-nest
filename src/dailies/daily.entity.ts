@@ -14,17 +14,14 @@ export class Daily {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ length: 500 })
-  title: string;
-
-  @Column('int')
+  @Column({ type: 'int', default: 1 })
   userId: number;
 
-  @Column('int')
+  @Column({ type: 'int', default: 1 })
   languageId: number;
 
   @Column('text')
-  body: string;
+  text: string;
 
   @CreateDateColumn({
     type: 'timestamp',
@@ -39,9 +36,9 @@ export class Daily {
   })
   public updatedAt: Date;
 
-  @OneToMany(type => Word, word => word.daily)
+  @OneToMany(type => Word, word => word.daily, { cascade: ['insert'] })
   words: Word[];
 
-  @OneToMany(type => Grammar, grammar => grammar.daily)
+  @OneToMany(type => Grammar, grammar => grammar.daily, { cascade: ['insert'] })
   grammars: Grammar[];
 }
