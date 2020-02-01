@@ -17,7 +17,9 @@ export class DailiesService {
   }
 
   findAll(): Promise<DailyEntity[]> {
-    return this.dailyRepository.find();
+    return this.dailyRepository.find({
+      relations: ['words'],
+    });
   }
 
   findOne(id: string): Promise<DailyEntity> {
@@ -26,12 +28,12 @@ export class DailiesService {
 
   update({
     id,
-    DailyDto,
+    daily,
   }: {
     id: string;
-    DailyDto: DailyDto;
+    daily: DailyDto;
   }): Promise<UpdateResult> {
-    return this.dailyRepository.update(id, DailyDto);
+    return this.dailyRepository.update(id, daily);
   }
 
   delete(id: string): Promise<DeleteResult> {

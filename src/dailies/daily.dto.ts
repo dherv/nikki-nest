@@ -1,6 +1,6 @@
 export class DailyDto {
   readonly title: string;
-  readonly user_id: number;
-  readonly language_id: number;
+  readonly userId: number;
+  readonly languageId: number;
   readonly body: string;
 }

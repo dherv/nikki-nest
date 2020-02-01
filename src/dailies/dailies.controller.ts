@@ -35,9 +35,9 @@ export class DailiesController {
   @Put(':id')
   async update(
     @Param('id') id: string,
-    @Body() DailyDto: DailyDto,
+    @Body() daily: DailyDto,
   ): Promise<UpdateResult> {
-    return await this.dailiesService.update({ id, DailyDto });
+    return await this.dailiesService.update({ id, daily });
   }
 
   @Delete(':id')

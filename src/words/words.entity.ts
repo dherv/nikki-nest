@@ -13,10 +13,13 @@ export class Word {
   id: number;
 
   @Column()
-  word: string;
+  text: string;
 
   @Column()
   translation: string;
+
+  @Column()
+  example: string;
 
   @Column({ nullable: true })
   ruby: string;
