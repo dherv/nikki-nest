@@ -17,7 +17,11 @@ export class WordsService {
   }
 
   findAll(): Promise<WordEntity[]> {
-    return this.wordRepository.find();
+    return this.wordRepository.find({
+      order: {
+        createdAt: 'DESC',
+      },
+    });
   }
 
   findOne(id: string): Promise<WordEntity> {

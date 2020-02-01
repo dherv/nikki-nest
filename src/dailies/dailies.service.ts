@@ -19,6 +19,9 @@ export class DailiesService {
   findAll(): Promise<DailyEntity[]> {
     return this.dailyRepository.find({
       relations: ['words', 'grammars'],
+      order: {
+        createdAt: 'DESC',
+      },
     });
   }
 

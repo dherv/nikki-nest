@@ -9,7 +9,7 @@ export class GrammarsService {
   constructor(
     @InjectRepository(GrammarEntity)
     private readonly grammarRepository: Repository<GrammarEntity>,
-  ) { }
+  ) {}
 
   create(grammar: GrammarEntity) {
     const newGrammar = this.grammarRepository.create(grammar);
@@ -17,7 +17,11 @@ export class GrammarsService {
   }
 
   findAll(): Promise<GrammarEntity[]> {
-    return this.grammarRepository.find();
+    return this.grammarRepository.find({
+      order: {
+        createdAt: 'DESC',
+      },
+    });
   }
 
   findOne(id: string): Promise<GrammarEntity> {
