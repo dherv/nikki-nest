@@ -20,7 +20,7 @@ export class Word {
   @Column()
   translation: string;
 
-  @Column()
+  @Column({ nullable: true })
   example: string;
 
   @Column({ nullable: true })
