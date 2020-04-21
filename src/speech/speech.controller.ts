@@ -8,10 +8,12 @@ import * as AWS from 'aws-sdk';
 export class SpeechController {
   private client: any;
   private s3: any;
+  private voices: any;
 
   constructor() {
     this.client = null;
     this.s3 = null;
+    this.voices = null;
     this.init();
   }
   init() {
@@ -46,20 +48,45 @@ export class SpeechController {
       });
     });
   }
-
   @Post()
-  voice(@Body() body): Promise<any> {
-    // The text to synthesize
-    const { text } = body;
+  async voice(@Body() body) {
+    interface IVoice {
+      name: string;
+      ssmlGender: string;
+      languageCodes: string[];
+      naturalSampleRateHertz: number;
+    }
+
+    const { text, languageCode, voiceType } = body;
+
+    // Get the list of voices to select the one needed
+    const [result] = await this.client.listVoices({});
+    const voices: IVoice[] = result.voices;
+    const voicesMap: Map<string, IVoice> = new Map([]);
+
+    // filter voices depending on voice type
+    // TODO: the voiceMap is not useful if filtering by languageCode. Useful if call extracted and injected to avoid getting voice list on each call.
+    voices
+      .filter((v: IVoice) => v.languageCodes[0] === languageCode)
+      .filter((v: IVoice) => v.ssmlGender === 'FEMALE')
+      .filter((v: IVoice) => v.name.indexOf(voiceType) > -1)
+      .forEach((v: IVoice) => {
+        const code = v.languageCodes[0];
+        // remove duplicate codes
+        if (!voicesMap.has(code)) {
+          voicesMap.set(code, v);
+        }
+      });
+
+    const voice = voicesMap.get(languageCode);
 
     // Construct the request
     const request = {
       input: { text },
-      // Select the language and SSML Voice Gender (optional)
       voice: {
-        languageCode: 'nb-NO',
+        languageCode,
         ssmlGender: 'FEMALE',
-        name: 'nb-NO-Standard-A',
+        name: voice.name,
       },
       // Select the type of audio encoding
       audioConfig: { audioEncoding: 'MP3' },
