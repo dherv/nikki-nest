@@ -9,8 +9,12 @@ export class TranslateController {
     const translationClient = new TranslationServiceClient({
       keyFilename: './google_credentials.json',
     });
-    const { text, sourceLanguageCode, targetLanguageCode } = body;
 
+    let { sourceLanguageCode, targetLanguageCode } = body;
+    const { text } = body;
+
+    sourceLanguageCode = sourceLanguageCode.slice(0, 2);
+    targetLanguageCode = targetLanguageCode.slice(0, 2);
     // Construct request
     const request = {
       parent: `projects/nikki-1578793478545`,
